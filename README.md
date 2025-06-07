@@ -12,6 +12,14 @@ Ce `Vagrantfile` configure une machine virtuelle Ubuntu 22.04 LTS pour les tests
     * **OS :** Ubuntu 22.04 LTS (Jammy Jellyfish)
     * **Adresse IP privée :** 192.168.56.11
     * **Ressources :** 1 CPU, 1 Go RAM
+* **server02**
+    * **OS :** Ubuntu 22.04 LTS (Jammy Jellyfish)
+    * **Adresse IP privée :** 192.168.56.12
+    * **Ressources :** 1 CPU, 1 Go RAM
+* **server03**
+    * **OS :** Ubuntu 22.04 LTS (Jammy Jellyfish)
+    * **Adresse IP privée :** 192.168.56.13
+    * **Ressources :** 1 CPU, 1 Go RAM
 
 ### Comment démarrer l'environnement :
 
