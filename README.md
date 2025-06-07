@@ -4,7 +4,7 @@ Ce dépôt contient la configuration Vagrant pour créer l'environnement de mach
 
 ## Configuration Vagrant (par Personne 2)
 
-Ce `Vagrantfile` configure une machine virtuelle Ubuntu 22.04 LTS pour les tests.
+Ce `Vagrantfile` configure un ensemble de machines virtuelles Ubuntu 22.04 LTS pour les tests.
 
 ### Machine(s) virtuelle(s) configurée(s) :
 
@@ -25,29 +25,44 @@ Ce `Vagrantfile` configure une machine virtuelle Ubuntu 22.04 LTS pour les tests
 
 1.  Assurez-vous d'avoir [VirtualBox](https://www.virtualbox.org/wiki/Downloads) et [Vagrant](https://www.vagrantup.com/downloads) installés sur votre machine hôte.
 2.  Naviguez dans le dossier `patch_project_vagrant` via votre terminal (PowerShell, CMD, Bash, etc.).
-3.  Exécutez la commande suivante pour démarrer la machine virtuelle :
+3.  Exécutez la commande suivante pour démarrer les machines virtuelles :
     ```bash
     vagrant up
     ```
-    (La première fois, la box sera téléchargée.)
-4.  Pour vous connecter en SSH à la VM :
+    (La première fois pour une box, le téléchargement peut prendre du temps.)
+4.  Pour vous connecter en SSH à une VM spécifique (remplacez X par 1, 2 ou 3) :
     ```bash
-    vagrant ssh server01 # ou simplement vagrant ssh si c'est la seule VM
+    vagrant ssh server0X
     ```
-5.  Pour arrêter la VM :
+5.  Pour arrêter toutes les VMs :
     ```bash
     vagrant halt
     ```
-6.  Pour détruire (supprimer) la VM :
+6.  Pour détruire (supprimer) toutes les VMs de VirtualBox :
     ```bash
     vagrant destroy -f
     ```
 
 ---
 
-## État du Projet (Jour 1)
+## État du Projet (Jour 2 - Avancement actuel)
 
-* **Environnement Vagrant :** La machine virtuelle `server01` est définie et a été testée avec succès. Elle est prête pour le déploiement Ansible.
-* **Collaboration pour Personne 1 :** L'adresse IP de `server01` est `192.168.56.11`.
-  Les informations d'accès SSH pour Ansible peuvent être obtenues via `vagrant ssh-config server01` (nécessaire pour l'inventaire Ansible).
-* **Prochaine étape :** Mise en place d'une configuration multi-VMs.
+### Tâches accomplies par Personne 2 :
+
+* **Environnement Vagrant Multi-VMs :** Le `Vagrantfile` est configuré pour 3 machines virtuelles (`server01`, `server02`, `server03`). Toutes les VMs ont été créées et la connectivité SSH a été testée avec succès. L'environnement est prêt pour les déploiements Ansible.
+* **Robustesse de l'environnement :** Des cycles de `vagrant destroy -f` et `vagrant up` ont été effectués pour s'assurer de la reproductibilité et de la stabilité de l'environnement.
+* **Monitoring (Node Exporter) :** `node_exporter` est automatiquement installé et configuré sur chaque machine virtuelle (`server01`, `server02`, `server03`) via le provisionnement Vagrant, écoutant sur le port 9100. Un répertoire `/var/lib/node_exporter/textfile_collector` est également créé pour les métriques personnalisées (supposant l'option B de Grafana).
+
+### Informations pour la Collaboration (à l'attention de Personne 1 - Spécialiste Ansible) :
+
+* Les adresses IP des VMs sont :
+    * `server01`: `192.168.56.11`
+    * `server02`: `192.168.56.12`
+    * `server03`: `192.168.56.13`
+* Les informations d'accès SSH pour Ansible peuvent être obtenues via `vagrant ssh-config server0X` (où X est 1, 2 ou 3) pour chaque machine virtuelle.
+
+### Prochaines étapes et responsabilités continues pour Personne 2 :
+
+* **Support & Stabilité Environnement :** Être disponible pour le support et le débogage de l'environnement (redémarrage/recréation des VMs, problèmes de connectivité) pendant les tests des playbooks Ansible par Personne 1.
+* **Finalisation Documentation Vagrant :** Continuer à affiner et à enrichir ce `README.md` ou d'autres documents liés à la configuration Vagrant.
+* **(Optionnel/Bonus) Exploration Inventaire Dynamique :** Si le temps le permet, explorer la possibilité de générer un inventaire Ansible dynamique à partir de Vagrant.
